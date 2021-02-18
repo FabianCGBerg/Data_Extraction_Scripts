@@ -1,0 +1,110 @@
+Demographic Information:
+
+Test Name: 
+Child ID: 1
+Session ID: 
+Grade: 
+Date Of Birth: 
+Sex: Female
+Age: 5
+Played At: 2021-02-11 16:57:05 +0000
+Notes:
+
+1. 1_SpMeas1 Answer: 1 Response: 
+2. 2_NumCncpt1 Answer: 1 Response: 
+3. 3_SpMeas2 Answer: 1 Response: 
+4. 4_NumCncpt2 Answer: 1 Response: 
+5. 5_NumCncpt3 Answer: 1 Response: 
+6. 6_SpMeas3 Answer: 1 Response: 
+7. 7_NumCncpt4 Answer: 1 Response: 
+8. 8_OrdPos1 Answer: 1 Response: 
+9. 9_NumCncpt5 Answer: 1 Response: 
+10. 10_SpMeas4 Answer: 1 Response: 
+11. 11_SpMeas5 Answer: 1 Response: 
+12. 12_NumCncpt6 Answer: 1 Response: 
+13. 13_NumCncpt7 Answer: 1 Response: 
+14. 14_MatchNum1 Answer: 1 Response: 
+15. 14_MatchNum1 Answer: 1 Response: 
+16. 15_CountSub1 Answer: 1 Response: 
+17. 16_NumCncpt8 Answer: 1 Response: 
+18. 17_SpMeas6 Answer: 1 Response: 
+19. 18_SpMeas7 Answer: 1 Response: 
+20. 19_MatchNum2 Answer: 1 Response: 
+21. 19_MatchNum2 Answer: 1 Response: 
+22. 20_NumCncpt9 Answer: 1 Response: 
+23. 21_SpMeas8 Answer: 0 Response: Position 1
+24. 22_NumCncpt10 Answer: 1 Response: 
+25. 23_MatchNum3 Answer: 1 Response: 
+26. 23_MatchNum3 Answer: 1 Response: 
+27. 24_OrdPos2 Answer: 1 Response: 
+28. 25_NumLine1 Answer: 1 Response: 
+29. 26_Subit1 Answer: 1 Response: 
+30. 27_SpMeas9 Answer: 1 Response: 
+31. 28_NumCncpt11 Answer: 1 Response: 
+32. 29_MatchNum4 Answer: 1 Response: 
+33. 29_MatchNum4 Answer: 1 Response: 
+34. 30_MatchNum5 Answer: 1 Response: 
+35. 30_MatchNum5 Answer: 1 Response: 
+36. 31_SpMeas10 Answer: 1 Response: 
+37. 32_NumLine2 Answer: 1 Response: 
+38. 33_Ordin1 Answer: 1 Response: 
+39. 34_SpMeas11 Answer: 1 Response: 
+40. 35_Ordin2 Answer: 1 Response: 
+41. 36_Subit2 Answer: 1 Response: 
+42. 37_CountSub2 Answer: 1 Response: 
+43. 38_WordProb1 Answer: 1 Response: 
+44. 39_Pattern1 Answer: 1 Response: 
+45. 40_Ordin3 Answer: 1 Response: 
+46. 41_Subit3 Answer: 1 Response: 
+47. 42_MatchNum6 Answer: 1 Response: 
+48. 42_MatchNum6 Answer: 1 Response: 
+49. 43_Ordin4 Answer: 1 Response: 
+50. 44_NumLine3 Answer: 1 Response: 
+51. 45_Pattern2 Answer: 0 Response: green-square
+52. 46_SpMeas12 Answer: 0 Response: Position 0
+53. 47_NumLine4 Answer: 1 Response: 
+54. 48_CountSub3 Answer: 0 Response: Don't Know
+55. 49_CountSub4 Answer: 1 Response: 
+56. 50_SpMeas13 Answer: 1 Response: 
+57. 51_NumCncpt12 Answer: 0 Response: cupcakes-2
+58. 52_Pattern3 Answer: 1 Response: 
+59. 53_Pattern4 Answer: 1 Response: 
+60. 54_Subit4 Answer: 0 Response: 6
+61. 55_Equat1 Answer: 1 Response: 
+62. 56_NumLine5 Answer: 1 Response: 
+63. 57_Ordin5 Answer: 1 Response: 
+64. 58_OrdPos3 Answer: 0 Response: shells-1
+65. 59_Subit5 Answer: 0 Response: 9
+66. 60_Ordin6 Answer: 0 Response: 20
+67. 61_CountSub5 Answer: 1 Response: 
+68. 62_Pattern5 Answer: 0 Response: green-circle
+69. 63_Subit6 Answer: 0 Response: 8
+70. 64_CountSub6 Answer: 1 Response: 
+71. 65_Pattern6 Answer: 0 Response: blue-square
+72. 66_OrdPos4 Answer: 1 Response: 
+73. 67_Equat2 Answer: 1 Response: 
+74. 68_Equat3 Answer: 0 Response: 1
+75. 69_NumLine6 Answer: 1 Response: 
+76. 70_OrdPos5 Answer: 1 Response: 
+77. 71_WordProb2 Answer: 1 Response: 
+78. 72_Equat4 Answer: 1 Response: 
+79. 73_OrdPos6 Answer: 1 Response: 
+80. 74_Equat5 Answer: 1 Response: 
+81. 75_WordProb3 Answer: 1 Response: 
+82. 76_WordProb4 Answer: 0 Response: 6
+83. 77_WordProb5 Answer: 0 Response: 4
+84. 78_Equat6 Answer: 1 Response: 
+85. 79_WordProb6 Answer: 0 Response: 6
+
+Score
+Early Numerical Concepts and Language: 11/12
+Counting a Subset: 5/6
+Discerning & Completing Patterns: 3/6
+Matching Digit & Quantity: 6/6
+Numerical Word Problems: 3/6
+Completing Number Line: 6/6
+Conceptual Subitizing: 3/6
+Early Spatial & Measurement Concepts: 11/13
+Ordinal Position: 5/6
+Number Comparison: 5/6
+
