@@ -25,7 +25,7 @@ BehavioralSettings[1].mkdir(parents=True, exist_ok=True)
 NumberOfErrors = 0 #Initialize error counter
 AllDataUni = pd.DataFrame()  #initialize dataframes
 
-#Load in all the .dat files in that directory
+#Load in all the .txt files in that directory
 Files = []
 for file in listdir(Path(BehavioralSettings[0])):
     if file.endswith(".txt"):
