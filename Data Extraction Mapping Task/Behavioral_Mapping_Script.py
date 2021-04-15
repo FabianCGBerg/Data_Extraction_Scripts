@@ -75,6 +75,11 @@ def behavioral_mapping_runner(filename):
                  }
 
     behavioral_data_mult = pd.DataFrame(data_mult)
+    # Here I recode the Options and Stimulus variables into numbers
+    behavioral_data_mult['Options'] = behavioral_data_mult['Options'].map(
+        {'Numbers': 1, 'Canonical': 2, 'Non-Canonical': 3})
+    behavioral_data_mult['Stimulus'] = behavioral_data_mult['Stimulus'].map(
+        {'Numbers': 1, 'Canonical': 2, 'Non-Canonical': 3})
 
     # and as a univariate format
     data_uni = {'PP': np.concatenate([np.repeat(info_df['Participant'], len(acc_overall))]),
@@ -90,9 +95,10 @@ def behavioral_mapping_runner(filename):
                 }
 
     behavioral_data_uni = pd.DataFrame(data_uni)
+    # Here I recode the Options and Stimulus variables into numbers
+    behavioral_data_uni['Options'] = behavioral_data_uni['Options'].map(
+        {'Numbers': 1, 'Canonical': 2, 'Non-Canonical': 3})
+    behavioral_data_uni['Stimulus'] = behavioral_data_uni['Stimulus'].map(
+        {'Numbers': 1, 'Canonical': 2, 'Non-Canonical': 3})
 
     return int(info_df['Participant']), behavioral_data_mult, behavioral_data_uni
-
-
-#test_file = '/Users/fabian/Dropbox/Work/Python Tasks/Mapping Task/Data Extraction Mapping Task/07 - Raw Data/Mapping Task/Canonical/ppn003_MappingTask_2021-02-10T10.28.40.dat'
-#behavioral_mapping_runner(test_file)

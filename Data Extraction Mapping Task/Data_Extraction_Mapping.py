@@ -1,4 +1,4 @@
-from os import path, listdir
+from os import path, listdir, remove
 from os.path import isfile, join
 from pathlib import Path
 import inspect
@@ -61,13 +61,12 @@ for LoopDir in BehavioralSettings[1]:
         Bins = pd.DataFrame(data=BinData)
 
         if isfile(ExcelFileName):
-            Behavioral_Mapping_Script.write_excel(ExcelFileName, ('Univariate_' + LoopDir), AllDataUni)
-            Behavioral_Mapping_Script.write_excel(ExcelFileName, ('Multivariate_' + LoopDir), AllDataMulti)
-        else:
-            with pd.ExcelWriter(ExcelFileName, mode='w') as writer:
-                Bins.to_excel(writer, sheet_name='Bins')
-                AllDataUni.to_excel(writer, sheet_name=('Univariate_' + LoopDir))
-                AllDataMulti.to_excel(writer, sheet_name=('Multivariate_' + LoopDir))
+            remove(ExcelFileName)
+
+        with pd.ExcelWriter(ExcelFileName, mode='w') as writer:
+            Bins.to_excel(writer, sheet_name='Bins')
+            AllDataUni.to_excel(writer, sheet_name=('Univariate_' + LoopDir))
+            AllDataMulti.to_excel(writer, sheet_name=('Multivariate_' + LoopDir))
 
         print('')
         print('***************************************')
