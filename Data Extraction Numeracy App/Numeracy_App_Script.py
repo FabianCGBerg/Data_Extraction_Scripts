@@ -32,9 +32,11 @@ def numeracy_app_data_runner(filename):
     data_start = check_lines(filename, 'Notes:')
     data_end = check_lines(filename, 'Score')
 
+
+
     # extract the participant information from the file, this is always at the top
     # of the file, 6 rows before the data starts
-    rows_to_keep = range(3, data_start - 2)
+    rows_to_keep = range(0, data_start - 2)
 
     # Import only those rows into a Dataframe
     info_df = pd.read_csv(filename, skiprows=lambda x: x not in rows_to_keep, header=None, sep=":")
@@ -44,6 +46,8 @@ def numeracy_app_data_runner(filename):
     new_header = info_df.iloc[0]  # grab the first row for the header
     info_df = info_df[1:]  # take the data less the header row
     info_df.columns = new_header  # set the header row as the df header
+
+
 
     # Now we can read in the data
     # we skip the rows until we get to the actual data and stop before the scores given by the app
@@ -55,6 +59,7 @@ def numeracy_app_data_runner(filename):
                           header=None,
                           sep="\\.\\ | \\_\\ | Answer: | Response",
                           engine='python')
+
 
     data_df.columns = ['Trials', 'Component', 'Correct', 'Response']
     data_df['Component'] = data_df['Component'].str.replace('\\d+', '')  # removing the numbers from the labels
@@ -85,8 +90,10 @@ def numeracy_app_data_runner(filename):
     behavioral_data_uni['Total'] = scores['Total'].values
     behavioral_data_uni['Percentage'] = scores['Percentage'].values
 
+    # Fill in the zero correct values, which are N/As with actual zeros
+    behavioral_data_uni['Correct'] = behavioral_data_uni['Correct'].fillna(0)
+    behavioral_data_uni['Percentage'] = behavioral_data_uni['Percentage'].fillna(0)
+
     return behavioral_data_uni
 
 
-#test_file = '/Users/fabian/Dropbox/Work/Python Tasks/Data Extraction Numeracy App/data/1_Numeracy.txt'
-#numeracy_app_data_runner(test_file)

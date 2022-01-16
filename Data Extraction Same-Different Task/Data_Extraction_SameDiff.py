@@ -12,8 +12,8 @@ import Behavioral_SameDiff_Script
 
 filename = Path(path.dirname(path.abspath(inspect.getframeinfo(inspect.currentframe()).filename)))
 
-BehavioralSettings = [(Path(filename) / 'data/'), ['4) 3-Val_Uncrossed.csv'],
-                      Path('data/Results/'), 'SameDiff_Behavioral_Data.xlsx']
+BehavioralSettings = [(Path(filename) / 'Data/'), ['3-Val_Uncrossed.csv'],
+                      Path('Data/Results/'), 'SameDiff_Behavioral_Data.xlsx']
 
 # make sure the results folder exists, if not it is created
 BehavioralSettings[2].mkdir(parents=True, exist_ok=True)
@@ -56,7 +56,14 @@ for LoopDir in BehavioralSettings[1]:
             print('Error occurred at file: ' + File)
             NumberOfErrors += 1
 
-    if NumberOfErrors == 0:
+    if NumberOfErrors <= 5:
+
+        if NumberOfErrors > 0:
+            print('')
+            print('***************************************')
+            print('There were/was {} error(s), but I am saving what I have'.format(NumberOfErrors))
+            print('check the files and/or code for something strange')
+            print('***************************************')
 
         ExcelFileName = join(BehavioralSettings[2], BehavioralSettings[3])
 
@@ -84,4 +91,10 @@ for LoopDir in BehavioralSettings[1]:
         print('')
         print('***************************************')
         print('Successfully saved ' + LoopDir + ' to file: ' + BehavioralSettings[3])
+        print('***************************************')
+    else:
+        print('')
+        print('***************************************')
+        print('There were {} errors, so I did not save just yet'.format(NumberOfErrors))
+        print('check the files and/or code for something strange')
         print('***************************************')

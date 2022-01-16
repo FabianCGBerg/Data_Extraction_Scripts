@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+pd.set_option("display.max_columns", 20)
+
 
 def write_excel(filename, sheetname, dataframe):
     # function that checks if a worksheet exists, deletes it, and then writes the data to it
@@ -24,8 +26,32 @@ def check_lines(file_name, look_up):
                 return num
 
 
-def behavioral_samediff_runner(filename):
+def check_info_df(info_df, cols):
+    for col in cols:
+        if col not in info_df.columns:
+            info_df[col] = 'N/A'
 
+    return info_df
+
+
+def check_groupby(df, index_ls, na_value=999):
+    for idx in index_ls:
+        if idx not in df.index:
+            df[idx] = na_value
+    return df
+
+
+def fix_misses(df, rt_col='responseTime', cor_col='Correct', check_val=0, replace_val=np.nan):
+    # Fixes the missed responses to be NaN as to not skew the averages
+    df.loc[df[cor_col] == check_val, rt_col] = replace_val
+
+    # sets any negative RT to NaN
+    df.loc[df[rt_col] <= 0, rt_col] = replace_val
+
+    return df
+
+
+def behavioral_samediff_runner(filename):
     # we look for the first row of the actual data using the "trial_Number" keyword
     data_start = check_lines(filename, 'Trial_Number')
 
@@ -42,6 +68,7 @@ def behavioral_samediff_runner(filename):
     info_df = info_df[1:]  # take the data less the header row
     info_df.columns = new_header.str.strip()  # set the header row as the df header (without whitespaces)
 
+    info_df = check_info_df(info_df, ['Participant', 'Age', 'Handedness', 'Sex'])
     # Now we can read in the data, we skip the rows until we get to the actual data
     # Columns are as follows:
 
@@ -79,12 +106,23 @@ def behavioral_samediff_runner(filename):
     # we create a new column giving us the bins for the canonical/congruent bins for low and high
     data_df['Low/High Can/Con bins'] = data_df['Can/Con Bins'] + (5 * data_df['Low/High'])
 
-    # then we calculate the average Accuracy and RT for the 8 conditions made by Range, Canonicity, and Congruency
+    # First we fix the RT on missed responses to not drag down the averages
+    data_df = fix_misses(data_df)
+
+    # Then we fix the response, correct is coded as 1, incorrect as -1, and misses as 0
+    # This is coded separately in case we want to look at incorrect responses too
+    # All that we need to do is replace the -1 with 0, since misses and incorrect are the same
+    data_df['Correct'] = data_df['Correct'].replace(-1, 0)
+
     acc_overall = data_df.groupby('Low/High Can/Con bins')['Correct'].mean()
     rt_overall = data_df.groupby('Low/High Can/Con bins')['responseTime'].mean()
 
     # Lastly, we calculate the RTs on only correct responses
     rt_correct = data_df[data_df['Correct'] == 1].groupby('Low/High Can/Con bins')['responseTime'].mean()
+    # Quick check to make sure all the groups exist in case there were no correct in high for example
+    rt_correct = check_groupby(rt_correct, [1, 2, 3, 4, 6, 7, 8, 9], np.nan)
+    acc_overall = check_groupby(acc_overall, [1, 2, 3, 4, 6, 7, 8, 9], np.nan)
+    rt_overall = check_groupby(rt_overall, [1, 2, 3, 4, 6, 7, 8, 9], np.nan)
 
     # Then we can create the output
 
@@ -103,8 +141,10 @@ def behavioral_samediff_runner(filename):
 
     rt_correct_mult = rt_correct.reset_index().T
     rt_correct_mult = rt_correct_mult[1:]  # take the data less the header row
-    rt_correct_mult.columns = ['RT_Cor_Low_Incon_NCan', 'RT_Cor_Low_Incon_Can', 'RT_Cor_Low_Con_Ncan', 'RT_Cor_Low_Con_Can',
-                               'RT_Cor_High_Incon_NCan', 'RT_Cor_High_Incon_Can', 'RT_Cor_High_Con_Ncan', 'RT_Cor_High_Con_Can']
+    rt_correct_mult.columns = ['RT_Cor_Low_Incon_NCan', 'RT_Cor_Low_Incon_Can', 'RT_Cor_Low_Con_Ncan',
+                               'RT_Cor_Low_Con_Can',
+                               'RT_Cor_High_Incon_NCan', 'RT_Cor_High_Incon_Can', 'RT_Cor_High_Con_Ncan',
+                               'RT_Cor_High_Con_Can']
 
     # Add in the participant information and the overall means
     data_mult = {'PP': info_df['Participant'],

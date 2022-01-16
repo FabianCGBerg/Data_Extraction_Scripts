@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+pd.set_option("display.max_columns", 10)
+
 
 def write_excel(filename, sheetname, dataframe):
     # function that checks if a worksheet exists, deletes it, and then writes the data to it
@@ -22,6 +24,23 @@ def check_lines(file_name, look_up):
             if look_up in line:
                 DataFile.close()
                 return num
+
+
+def check_groupby(df, index_ls, na_value=np.nan):
+    for idx in index_ls:
+        if idx not in df.index:
+            df[idx] = na_value
+    return df
+
+
+def fix_misses(df, rt_col='RT', cor_col='Correct', check_val=0, replace_val=np.nan):
+    # Fixes the missed responses to be NaN as to not skew the averages
+    df.loc[df[cor_col] == check_val, rt_col] = replace_val
+
+    # sets any negative RT to NaN
+    df.loc[df[rt_col] <= 0, rt_col] = replace_val
+
+    return df
 
 
 def behavioral_mapping_runner(filename):
@@ -50,12 +69,25 @@ def behavioral_mapping_runner(filename):
     # we create a new column telling us if the number they saw was larger than 5
     data_df['LowHigh'] = np.where(data_df['Number Shown'] >= 5, 1, 0)
 
+    # First we fix the RT on missed responses to not drag down the averages
+    data_df = fix_misses(data_df, check_val=-1)
+
+    # Then we fix the response, correct is coded as 1, incorrect as -1, and misses as 0
+    # This is coded separately in case we want to look at incorrect responses too
+    # All that we need to do is replace the -1 with 0, since misses and incorrect are the same
+    data_df['Correct'] = data_df['Correct'].replace(-1, 0)
+
     # then we calculate the average Accuracy and RT for Low and High
-    acc_overall = data_df.groupby('LowHigh')['Correct'].mean()
     rt_overall = data_df.groupby('LowHigh')['RT'].mean()
 
     # Lastly, we calculate the RTs on only correct responses for Low and High
     rt_correct = data_df[data_df['Correct'] == 1].groupby('LowHigh')['RT'].mean()
+    acc_overall = data_df.groupby('LowHigh')['Correct'].mean()
+
+    # Quick check to make sure the groups exist  in case there were no correct in high for example
+    rt_correct = check_groupby(rt_correct, [0, 1])
+    acc_overall = check_groupby(acc_overall, [0, 1])
+    rt_overall = check_groupby(rt_overall, [0, 1])
 
     # Then we can create the output
 
